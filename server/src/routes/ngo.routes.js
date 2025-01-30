@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { authenticate, authorize } from '../middleware/auth.js';
+import * as ngoController from '../controllers/ngoController.js';
+
 const router = express.Router();
-const { authenticate, authorize } = require('../middleware/auth');
-const ngoController = require('../controllers/ngoController');
 
 // Get all SOS requests (NGO view)
 router.get('/requests',
@@ -38,4 +39,4 @@ router.get('/reports',
   ngoController.generateReport
 );
 
-module.exports = router;
+export default router;

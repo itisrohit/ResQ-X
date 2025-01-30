@@ -1,8 +1,8 @@
-const SOSRequest = require('../models/SOSRequest');
-const User = require('../models/User');
-const { createGeoJSONPoint } = require('../utils/geospatial');
+import SOSRequest from '../models/SOSRequest';
+import User from '../models/User';
+import { createGeoJSONPoint } from '../utils/geospatial';
 
-exports.createSOS = async (req, res) => {
+export const createSOS = async (req, res) => {
   try {
     const victim = await User.findById(req.user.id);
     if (!victim) return res.status(404).json({ error: 'User not found' });
@@ -31,13 +31,16 @@ exports.createSOS = async (req, res) => {
       volunteers: volunteers.map(v => v._id)
     });
 
+    // Notify all NGOs
+    req.io.to('ngo').emit('new-sos', sos);
+
     res.status(201).json(sos);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-exports.getNearbySOS = async (req, res) => {
+export const getNearbySOS = async (req, res) => {
   try {
     const { lng, lat } = req.query;
     if (!lng || !lat) return res.status(400).json({ error: 'Missing coordinates' });

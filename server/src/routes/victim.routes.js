@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { authenticate, authorize } from '../middleware/auth.js';
+import * as victimController from '../controllers/victimController.js';
+
 const router = express.Router();
-const { authenticate, authorize } = require('../middleware/auth');
-const victimController = require('../controllers/victimController');
 
 // Create SOS request
 router.post('/sos',
@@ -31,4 +32,4 @@ router.get('/complaint-status/:id',
   victimController.getComplaintStatus
 );
 
-module.exports = router;
+export default router;

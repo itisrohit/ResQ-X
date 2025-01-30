@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { authenticate, authorize } from '../middleware/auth.js';
+import * as volunteerController from '../controllers/volunteerController.js';
+
 const router = express.Router();
-const { authenticate, authorize } = require('../middleware/auth');
-const volunteerController = require('../controllers/volunteerController');
 
 // Update duty status
 router.put('/status',
@@ -31,4 +32,4 @@ router.put('/sos-status/:id',
   volunteerController.updateSOSStatus
 );
 
-module.exports = router;
+export default router;
