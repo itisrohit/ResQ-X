@@ -23,4 +23,9 @@ const complaintSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
       },
+      resolvedAt: {
+        type: Date
+      }
 }, {timestamps: true});
+
+export const Complaint = mongoose.model('Complaint', complaintSchema);

@@ -1,6 +1,6 @@
 import express from 'express';
-import { authenticate, authorize } from '../middleware/auth.js';
-import * as ngoController from '../controllers/ngoController.js';
+import { authenticate, authorize } from '../middlewares/auth.middleware.js';
+import { getAllRequests, resolveComplaint, generateReport,getComplaintStats, createComplaint } from '../controllers/ngoController.js';
 
 const router = express.Router();
 
@@ -8,35 +8,35 @@ const router = express.Router();
 router.get('/requests',
   authenticate,
   authorize('ngo'),
-  ngoController.getAllRequests
+  getAllRequests
 );
+
 
 // Get complaint statistics
 router.get('/complaints/stats',
   authenticate,
   authorize('ngo'),
-  ngoController.getComplaintStats
+  getComplaintStats
+);
+
+router.post('/complaints',
+  authenticate,
+  authorize('victim'),
+  createComplaint
 );
 
 // Resolve complaint
 router.put('/complaints/:id/resolve',
   authenticate,
   authorize('ngo'),
-  ngoController.resolveComplaint
-);
-
-// Get resource inventory
-router.get('/resources',
-  authenticate,
-  authorize('ngo'),
-  ngoController.getResources
+  resolveComplaint
 );
 
 // Generate disaster report
 router.get('/reports',
   authenticate,
   authorize('ngo'),
-  ngoController.generateReport
+  generateReport
 );
 
 export default router;

@@ -1,6 +1,6 @@
 import express from 'express';
-import { authenticate, authorize } from '../middleware/auth.js';
-import * as victimController from '../controllers/victimController.js';
+import { authenticate, authorize } from '../middlewares/auth.middleware.js';
+import { createSOS, getNearbySOS, getSOSStatus } from '../controllers/sosController.js';
 
 const router = express.Router();
 
@@ -8,28 +8,19 @@ const router = express.Router();
 router.post('/sos',
   authenticate,
   authorize('victim'),
-  victimController.createSOS
+  createSOS
 );
 
-// Create complaint
-router.post('/complaints',
-  authenticate,
-  authorize('victim'),
-  victimController.createComplaint
-);
+router.get('/nearby-sos', 
+  authenticate, 
+  authorize('volunteer'), 
+  getNearbySOS);
 
 // Get SOS status
 router.get('/sos-status/:id',
   authenticate,
   authorize('victim'),
-  victimController.getSOSStatus
-);
-
-// Get complaint status
-router.get('/complaint-status/:id',
-  authenticate,
-  authorize('victim'),
-  victimController.getComplaintStatus
+  getSOSStatus
 );
 
 export default router;

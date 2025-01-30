@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { validateCoordinates } from '../utils/geospatial.js';
 
 const userSchema = new Schema({
     fullname: {
@@ -22,20 +23,30 @@ const userSchema = new Schema({
     },
     location: {
         type: {
-          type: String,
-          enum: ['Point'],
+            type: String,
+            enum: ['Point'],
+            required: true,
         },
         coordinates: {
-          type: [Number],
+            type: [Number],
+            required: true,
+            validate: {
+                validator: validateCoordinates,
+                message: 'Invalid coordinates: must be [longitude, latitude] within valid range'
+            }
         }
-      },
-      isOnDuty: {
+    },
+    isOnDuty: {
         type: Boolean,
         default: false
-      },
-      phone: {
+    },
+    isBusy: {
+      type: Boolean,
+      default: false
+    },
+    phone: {
         type: String,
-      },
+    },
 }, {
     timestamps: true
 });
