@@ -1,0 +1,14 @@
+.login{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    border: 1px solid red;
+    width: 45em;
+    height: 30em;
+}

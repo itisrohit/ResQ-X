@@ -1,5 +1,5 @@
 import SOSRequest from '../models/SOSRequest';
-import User from '../models/User';
+import {User} from '../models/User';
 import { createGeoJSONPoint } from '../utils/geospatial';
 
 export const createSOS = async (req, res) => {

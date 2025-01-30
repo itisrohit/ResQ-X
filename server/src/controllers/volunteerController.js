@@ -1,4 +1,4 @@
-import User from '../models/User';
+import {User} from '../models/User';
 import { createGeoJSONPoint } from '../utils/geospatial';
 
 export const updateDutyStatus = async (req, res) => {
