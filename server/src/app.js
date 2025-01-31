@@ -4,10 +4,12 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import passport from 'passport';
 import http from 'http';
-import socketio from 'socket.io';
+import * as socketio from 'socket.io';  // Correct import for socket.io
 import session from 'express-session';
 import jwt from 'jsonwebtoken';
 import './config/passport.js';
+import { User } from './models/user.model.js';
+import { SOSRequest } from './models/SOSRequest.model.js';
 
 // Load environment variables
 dotenv.config();
@@ -15,13 +17,12 @@ dotenv.config();
 // Initialize Express and Socket.io
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server, {
+const io = new socketio.Server(server, {  // Initialize socket.io correctly
   cors: {
-    origin: process.env.CLIENT_URL || '*', 
+    origin: process.env.CLIENT_URL || '*',
     // methods: ['GET', 'POST'],
   },
 });
-
 
 // Middleware Configuration
 app.use(express.json({ limit: '16kb' }));
@@ -118,19 +119,15 @@ app.use((req, res, next) => {
 });
 
 // Route Configuration
-import ngoRoutes from './routes/ngoRoutes.js';
-import volunteerRoutes from './routes/volunteerRoutes.js';
-import victimRoutes from './routes/victimRoutes.js';
-import authRoutes from './routes/authRoutes.js';
-import publicRoutes from './routes/publicRoutes.js';
+import ngoRoutes from './routes/ngo.routes.js';
+import volunteerRoutes from './routes/volunteer.routes.js';
+import victimRoutes from './routes/victim.routes.js';
 import userRouter from './routes/user.routes.js';
 
 // API routes
 app.use('/api/ngo', ngoRoutes);
 app.use('/api/volunteer', volunteerRoutes);
 app.use('/api/victim', victimRoutes);
-app.use('/auth', authRoutes);
-app.use('/api/public', publicRoutes);
 app.use('/api/v1/users', userRouter);
 
 // Public Route (Health Check)
@@ -153,7 +150,6 @@ app.use((err, req, res, next) => {
 app.use((req, res) => {
   res.status(404).json({ error: 'Endpoint not found' });
 });
-
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
   console.error('Unhandled Rejection:', err);

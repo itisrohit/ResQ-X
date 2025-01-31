@@ -1,9 +1,4 @@
-import { OAuth2Client } from 'google-auth-library';
-import {User} from '../models/user.model.js';
-
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-
-const authMiddleware = async (req, res, next) => {
+const authenticate = async (req, res, next) => {
     try {
         const token = req.cookies?.accessToken || req.headers['authorization']?.replace("Bearer ", "");
         if (!token) {
@@ -32,4 +27,14 @@ const authMiddleware = async (req, res, next) => {
     }
 };
 
-export default authMiddleware;
+// Middleware to authorize based on user role
+const authorize = (role) => {
+    return (req, res, next) => {
+        if (req.user?.role !== role) {
+            return res.status(403).json({ status: 'fail', message: 'Forbidden' });
+        }
+        next();
+    };
+};
+
+export { authenticate, authorize };
