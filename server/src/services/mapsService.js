@@ -1,7 +1,7 @@
 import axios from 'axios';
-const { createGeoJSONPoint } = require('../utils/geospatial');
+import { createGeoJSONPoint } from '../utils/geospatial.js';
 
-exports.geocodeAddress = async (address) => {
+export const geocodeAddress = async (address) => {
   try {
     const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
@@ -21,7 +21,7 @@ exports.geocodeAddress = async (address) => {
   }
 };
 
-exports.getDirections = async (origin, destination) => {
+export const getDirections = async (origin, destination) => {
   try {
     const response = await axios.get('https://maps.googleapis.com/maps/api/directions/json', {
       params: {
