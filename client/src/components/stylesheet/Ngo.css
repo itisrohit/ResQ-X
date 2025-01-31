@@ -1,0 +1,113 @@
+:root {
+    --primary: #2d3436;
+    --secondary: #636e72;
+    --accent: #0984e3;
+    --border: #dfe6e9;
+  }
+  
+  .ngo {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f8f9fa;
+      padding: 1rem;
+      box-sizing: border-box;
+      overflow: hidden;
+  }
+  
+  .ngo-container {
+      width: 90%;
+      max-width: 1000px;
+      height: 90vh;
+      min-height: 500px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+  }
+  
+  .ngo-log-box {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+  }
+  
+  .log-button {
+      padding: 0.8rem 1.5rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: fit-content;
+  }
+  
+  .ngo-content {
+      flex: 1;
+      min-height: 0; /* Fix for Firefox flex overflow */
+      padding: 2rem;
+      box-sizing: border-box;
+      overflow-y: auto;
+  }
+  
+  .ngo-recent-requests {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      box-sizing: border-box;
+  }
+  
+  .ngo-recent-requests h1 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      font-weight: 400;
+      margin: 0 0 0.5rem 0;
+      text-align: center;
+      word-break: break-word;
+  }
+  
+  .empty-state {
+      color: var(--secondary);
+      font-size: 1rem;
+      margin: 0;
+      text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+      .ngo-container {
+          width: 100%;
+          height: 100vh;
+          border-radius: 0;
+      }
+      
+      .ngo-log-box {
+          padding: 1rem;
+      }
+      
+      .log-button {
+          width: 100%;
+          text-align: center;
+      }
+      
+      .ngo-content {
+          padding: 1rem;
+      }
+      
+      .ngo-recent-requests {
+          padding: 1.5rem;
+      }
+      
+      .ngo-recent-requests h1 {
+          font-size: 1.4rem;
+      }
+  }

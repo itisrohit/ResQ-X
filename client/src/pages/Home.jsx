@@ -1,10 +1,12 @@
 import React from 'react'
-import Victim from './Victim'
+import Logs from './Logs'
+
+
 
 const Home = () => {
   return (
     <div className="home">
-      <Victim />
+      <Logs />
     </div>
   )
 }
